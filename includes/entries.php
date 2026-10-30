@@ -15,7 +15,7 @@ add_action('init', function () {
         'labels'       => [
             'name'          => __('Form entries', 'evive-forms'),
             'singular_name' => __('Form entry', 'evive-forms'),
-            'menu_name'     => __('Form entries', 'evive-forms'),
+            'menu_name'     => _x('Form entries', 'admin menu', 'evive-forms'),
             'all_items'     => __('Form entries', 'evive-forms'),
             'edit_item'     => __('Form entry', 'evive-forms'),
             'not_found'     => __('No entries yet.', 'evive-forms'),
@@ -183,10 +183,10 @@ add_action('admin_post_evive_forms_export', function () {
     fwrite($out, "\xEF\xBB\xBF"); // BOM, so Excel reads UTF-8
     fputcsv($out, $head);
     foreach ($rows as $r) {
-        // A leading = + - @ would be run as a formula by spreadsheet apps.
+        // A leading = + - @ (or tab/CR) would be run as a formula by spreadsheet apps; phone numbers like +31 stay as they are.
         fputcsv($out, array_map(function ($k) use ($r) {
             $v = (string) ($r[$k] ?? '');
-            return preg_match('/^[=+\-@]/', $v) ? "'" . $v : $v;
+            return preg_match('/^[=+\-@\t\r]/', $v) && !preg_match('/^[+\-]?[0-9 ().\-\/]+$/', $v) ? "'" . $v : $v;
         }, $head));
     }
     exit;

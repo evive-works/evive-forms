@@ -31,7 +31,7 @@
 	}
 }
 
-:where(.evive-field) > label {
+:where(.evive-field) > label:not(.evive-field-check) {
 	font-weight: 600;
 }
 

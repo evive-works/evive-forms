@@ -1,0 +1,121 @@
+/* evive Forms. Low specificity (:where) and theme tokens with fallbacks, so the active theme stays in charge. */
+:where(.evive-form) {
+	--evive-form-gap: var(--wp--preset--spacing--40, 1.25rem);
+	--evive-form-radius: var(--wp--custom--radius--s, 4px);
+	--evive-form-line: var(--wp--preset--color--muted, #767676);
+	--evive-form-error: #b3261e;
+}
+
+:where(.evive-form-fields) {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--evive-form-gap);
+}
+
+:where(.evive-field) {
+	display: flex;
+	flex: 1 1 100%;
+	flex-direction: column;
+	gap: 0.35rem;
+	margin: 0;
+	min-width: 0;
+}
+
+:where(.evive-field.is-half) {
+	flex-basis: calc(50% - var(--evive-form-gap) / 2);
+}
+
+@media (max-width: 600px) {
+	:where(.evive-field.is-half) {
+		flex-basis: 100%;
+	}
+}
+
+:where(.evive-field) > label {
+	font-weight: 600;
+}
+
+:where(.evive-field) :where(input:not([type="checkbox"]), select, textarea) {
+	border: 1px solid var(--evive-form-line);
+	border-radius: var(--evive-form-radius);
+	box-sizing: border-box;
+	font: inherit;
+	padding: 0.7em 0.9em;
+	width: 100%;
+}
+
+:where(.evive-field) textarea {
+	min-height: 8rem;
+	resize: vertical;
+}
+
+:where(.evive-field-check) {
+	align-items: flex-start;
+	display: flex;
+	gap: 0.6rem;
+}
+
+:where(.evive-field-check) input {
+	accent-color: var(--wp--preset--color--primary, currentColor);
+	flex: none;
+	height: 1.15em;
+	margin: 0.2em 0 0;
+	width: 1.15em;
+}
+
+:where(.evive-field-required) {
+	color: var(--evive-form-error);
+}
+
+:where(.evive-field-help) {
+	color: var(--wp--preset--color--muted, #767676);
+	font-size: var(--wp--preset--font-size--xs, 0.85rem);
+	margin: 0;
+}
+
+:where(.evive-field) [aria-invalid="true"] {
+	border-color: var(--evive-form-error);
+	box-shadow: 0 0 0 1px var(--evive-form-error);
+}
+
+:where(.evive-field-error) {
+	color: var(--evive-form-error);
+	font-size: var(--wp--preset--font-size--xs, 0.85rem);
+	margin: 0;
+}
+
+:where(.evive-form-message) {
+	border-radius: var(--evive-form-radius);
+	margin-top: var(--evive-form-gap);
+	padding: 0.9em 1.1em;
+}
+
+:where(.evive-form-message.is-success) {
+	background: var(--wp--preset--color--surface, #f2f5f3);
+	border-left: 4px solid var(--wp--preset--color--primary, #1a7f37);
+	margin-top: 0;
+}
+
+:where(.evive-form-message.is-error) {
+	background: #fdecea;
+	border-left: 4px solid var(--evive-form-error);
+	color: #5f1410;
+}
+
+:where(.evive-form-actions) {
+	margin-top: var(--evive-form-gap);
+}
+
+:where(.evive-form[aria-busy="true"]) button[type="submit"] {
+	cursor: progress;
+	opacity: 0.7;
+}
+
+/* Honeypot: off-screen for people, still filled in by bots. */
+.evive-form-trap {
+	height: 1px;
+	left: -10000px;
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+}

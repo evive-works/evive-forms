@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "evive/form",
+	"title": "Form",
+	"category": "widgets",
+	"icon": "feedback",
+	"description": "A form whose entries are emailed to you and kept in WordPress. Add fields inside it.",
+	"keywords": ["form", "contact", "demo", "request", "newsletter"],
+	"textdomain": "evive-forms",
+	"attributes": {
+		"formTitle": { "type": "string", "default": "" },
+		"notifyTo": { "type": "string", "default": "" },
+		"submitLabel": { "type": "string", "default": "" },
+		"successMessage": { "type": "string", "default": "" },
+		"confirmation": { "type": "boolean", "default": false },
+		"confirmationSubject": { "type": "string", "default": "" },
+		"confirmationMessage": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"anchor": true,
+		"spacing": { "margin": true, "padding": true, "blockGap": true },
+		"color": { "background": true, "text": true },
+		"__experimentalBorder": { "radius": true, "width": true, "color": true }
+	},
+	"editorScript": "evive-forms-editor",
+	"viewScript": "evive-forms",
+	"style": "evive-forms",
+	"render": "file:./render.php"
+}

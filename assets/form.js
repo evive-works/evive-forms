@@ -43,7 +43,8 @@
 			form.elements.evive_t.value = Math.round((Date.now() - loaded) / 1000);
 			button.disabled = true;
 			form.setAttribute('aria-busy', 'true');
-			fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'X-Evive-Forms': '1' }, credentials: 'same-origin' })
+			// form.action would be the hidden input named "action", so read the attribute.
+			fetch(form.getAttribute('action'), { method: 'POST', body: new FormData(form), headers: { 'X-Evive-Forms': '1' }, credentials: 'same-origin' })
 				.then(function (r) { return r.json(); })
 				.then(function (res) {
 					if (res.ok) {

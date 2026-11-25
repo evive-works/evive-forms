@@ -4,14 +4,14 @@ msgid ""
 msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Project-Id-Version: evive Forms 0.1.0\n"
+"Project-Id-Version: evive Forms 0.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/evive-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-30T18:25:34+01:00\n"
+"POT-Creation-Date: 2026-11-25T16:31:02+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: evive-forms\n"
@@ -36,13 +36,14 @@ msgstr ""
 msgid "https://evive.works"
 msgstr ""
 
-#: blocks/field/render.php:31
-#: assets/editor.js:95
+#: blocks/field/render.php:41
+#: assets/editor.js:107
+#: assets/editor.js:144
 msgid "Choose…"
 msgstr "Kies…"
 
 #: blocks/form/render.php:14
-#: assets/editor.js:51
+#: assets/editor.js:63
 msgid "Thank you! We received your message and will get back to you soon."
 msgstr "Bedankt! We hebben je bericht ontvangen en nemen snel contact met je op."
 
@@ -55,12 +56,12 @@ msgid "Something went wrong while sending. Please check the fields and try again
 msgstr "Er ging iets mis bij het versturen. Controleer de velden en probeer het opnieuw."
 
 #: blocks/form/render.php:29
-#: assets/editor.js:50
-#: assets/editor.js:63
+#: assets/editor.js:62
+#: assets/editor.js:75
 msgid "Send"
 msgstr "Versturen"
 
-#: includes/definitions.php:47
+#: includes/definitions.php:69
 msgid "Contact form"
 msgstr "Contactformulier"
 
@@ -97,13 +98,13 @@ msgstr "Inzending"
 
 #: includes/entries.php:75
 #: includes/entries.php:207
-#: assets/editor.js:47
+#: assets/editor.js:59
 msgid "Form"
 msgstr "Formulier"
 
 #: includes/entries.php:76
-#: assets/editor.js:31
-#: assets/editor.js:56
+#: assets/editor.js:43
+#: assets/editor.js:68
 msgid "Message"
 msgstr "Bericht"
 
@@ -141,7 +142,7 @@ msgid "Add a form with the \"Form\" block. These settings apply to every form; a
 msgstr "Voeg een formulier toe met het blok \"Formulier\". Deze instellingen gelden voor elk formulier; een formulier kan in de blokinstellingen een eigen ontvanger hebben."
 
 #: includes/settings.php:53
-#: assets/editor.js:49
+#: assets/editor.js:61
 msgid "Send entries to"
 msgstr "Inzendingen sturen naar"
 
@@ -188,33 +189,37 @@ msgstr "Vul een geldig e-mailadres in."
 msgid "Please enter a valid phone number."
 msgstr "Vul een geldig telefoonnummer in."
 
-#: includes/submit.php:91
+#: includes/submit.php:95
 msgid "Please give your consent to send this form."
 msgstr "Geef je toestemming om dit formulier te versturen."
 
-#: includes/submit.php:91
+#: includes/submit.php:95
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
 
+#: includes/submit.php:117
+msgid "Source of this entry:"
+msgstr "Herkomst van deze inzending:"
+
 #. translators: %s: URL of the page with the form
-#: includes/submit.php:113
+#: includes/submit.php:120
 #, php-format
 msgid "Sent from: %s"
 msgstr "Verstuurd vanaf: %s"
 
 #. translators: 1: site name, 2: form title
-#: includes/submit.php:123
+#: includes/submit.php:130
 #, php-format
 msgid "[%1$s] New entry: %2$s"
 msgstr "[%1$s] Nieuwe inzending: %2$s"
 
 #. translators: %s: site name
-#: includes/submit.php:127
+#: includes/submit.php:134
 #, php-format
 msgid "Thank you for your message to %s"
 msgstr "Bedankt voor je bericht aan %s"
 
-#: includes/submit.php:128
+#: includes/submit.php:135
 msgid "Thank you for your message. We will get back to you soon."
 msgstr "Bedankt voor je bericht. We nemen snel contact met je op."
 
@@ -223,7 +228,7 @@ msgid "Text"
 msgstr "Tekst"
 
 #: assets/editor.js:14
-#: assets/editor.js:30
+#: assets/editor.js:42
 msgid "Email"
 msgstr "E-mail"
 
@@ -247,99 +252,163 @@ msgstr "Selectievakje"
 msgid "Consent (always required)"
 msgstr "Toestemming (altijd verplicht)"
 
+#: assets/editor.js:20
+msgid "Hidden (fills itself)"
+msgstr "Verborgen (vult zichzelf)"
+
+#: assets/editor.js:23
+msgid "Campaign source (utm_source)"
+msgstr "Campagnebron (utm_source)"
+
+#: assets/editor.js:24
+msgid "Campaign medium (utm_medium)"
+msgstr "Campagnemedium (utm_medium)"
+
+#: assets/editor.js:25
+msgid "Campaign name (utm_campaign)"
+msgstr "Campagnenaam (utm_campaign)"
+
+#: assets/editor.js:26
+msgid "Campaign term (utm_term)"
+msgstr "Campagnezoekterm (utm_term)"
+
+#: assets/editor.js:27
+msgid "Campaign content (utm_content)"
+msgstr "Campagne-inhoud (utm_content)"
+
+#: assets/editor.js:28
+msgid "Google Ads click (gclid)"
+msgstr "Google Ads-klik (gclid)"
+
 #: assets/editor.js:29
+msgid "Website the visitor came from"
+msgstr "Website waar de bezoeker vandaan kwam"
+
+#: assets/editor.js:30
+msgid "First page of the visit"
+msgstr "Eerste pagina van het bezoek"
+
+#: assets/editor.js:31
+msgid "A fixed value"
+msgstr "Een vaste waarde"
+
+#: assets/editor.js:41
 msgid "Name"
 msgstr "Naam"
 
-#: assets/editor.js:32
+#: assets/editor.js:44
 msgid "I agree that my details are used to answer my message."
 msgstr "Ik ga ermee akkoord dat mijn gegevens worden gebruikt om mijn bericht te beantwoorden."
 
-#: assets/editor.js:48
+#: assets/editor.js:60
 msgid "Form name"
 msgstr "Naam van het formulier"
 
-#: assets/editor.js:48
+#: assets/editor.js:60
 msgid "Shown in the entries list and the email subject."
 msgstr "Zichtbaar in de lijst met inzendingen en in het onderwerp van de e-mail."
 
-#: assets/editor.js:49
+#: assets/editor.js:61
 msgid "Email addresses, separated by commas. Empty: the address in Settings → evive Forms."
 msgstr "E-mailadressen, gescheiden door komma's. Leeg: het adres bij Instellingen → evive Forms."
 
-#: assets/editor.js:50
+#: assets/editor.js:62
 msgid "Button text"
 msgstr "Knoptekst"
 
-#: assets/editor.js:51
+#: assets/editor.js:63
 msgid "Message after sending"
 msgstr "Melding na versturen"
 
-#: assets/editor.js:53
+#: assets/editor.js:65
 msgid "Confirmation to the sender"
 msgstr "Bevestiging aan de afzender"
 
-#: assets/editor.js:54
+#: assets/editor.js:66
 msgid "Send a confirmation email"
 msgstr "Bevestigingsmail sturen"
 
-#: assets/editor.js:54
+#: assets/editor.js:66
 msgid "Goes to the first email field, with a copy of the entry."
 msgstr "Gaat naar het eerste e-mailveld, met een kopie van de inzending."
 
-#: assets/editor.js:55
+#: assets/editor.js:67
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: assets/editor.js:121
+#: assets/editor.js:110
+msgid "Hidden field, filled with:"
+msgstr "Verborgen veld, gevuld met:"
+
+#: assets/editor.js:135
 msgid "Label…"
 msgstr "Label…"
 
-#: assets/editor.js:127
+#: assets/editor.js:141
 msgid "Field"
 msgstr "Veld"
 
-#: assets/editor.js:128
+#: assets/editor.js:142
 msgid "Type"
 msgstr "Soort"
 
-#: assets/editor.js:129
+#: assets/editor.js:143
 msgid "Required"
 msgstr "Verplicht"
 
-#: assets/editor.js:130
+#: assets/editor.js:144
+msgid "Fill with"
+msgstr "Vullen met"
+
+#: assets/editor.js:144
+msgid "Taken from the visitor's first page of the visit (no cookies) and sent with the entry."
+msgstr "Komt uit de eerste pagina van het bezoek (zonder cookies) en wordt met de inzending meegestuurd."
+
+#: assets/editor.js:145
+msgid "Value"
+msgstr "Waarde"
+
+#: assets/editor.js:146
+msgid "Pre-fill from link"
+msgstr "Vooraf invullen vanuit de link"
+
+#: assets/editor.js:146
+msgid "Name of a link parameter, e.g. \"type\": /contact/?type=demo then chooses \"Demo\"."
+msgstr "Naam van een linkparameter, bijv. \"type\": /contact/?type=demo kiest dan \"Demo\"."
+
+#: assets/editor.js:147
 msgid "Choices"
 msgstr "Keuzes"
 
-#: assets/editor.js:130
+#: assets/editor.js:147
 msgid "One per line."
 msgstr "Eén per regel."
 
-#: assets/editor.js:131
+#: assets/editor.js:148
 msgid "Placeholder"
 msgstr "Voorbeeldtekst"
 
-#: assets/editor.js:132
+#: assets/editor.js:149
 msgid "Help text"
 msgstr "Hulptekst"
 
-#: assets/editor.js:133
+#: assets/editor.js:150
 msgid "Width"
 msgstr "Breedte"
 
-#: assets/editor.js:133
+#: assets/editor.js:150
 msgid "Full width"
 msgstr "Volle breedte"
 
-#: assets/editor.js:133
+#: assets/editor.js:150
 msgid "Half width"
 msgstr "Halve breedte"
 
-#: assets/editor.js:134
+#: assets/editor.js:151
 msgid "Field name"
 msgstr "Veldnaam"
 
-#: assets/editor.js:134
+#: assets/editor.js:151
 msgid "Used in the entries and the CSV export. Letters, digits and _ only."
 msgstr "Gebruikt in de inzendingen en de CSV-export. Alleen letters, cijfers en _."
 
@@ -350,8 +419,8 @@ msgstr "Formulierveld"
 
 #: blocks/field/block.json
 msgctxt "block description"
-msgid "One field of a form: text, email, phone, message, choice, checkbox or consent."
-msgstr "Eén veld van een formulier: tekst, e-mail, telefoon, bericht, keuze, selectievakje of toestemming."
+msgid "One field of a form: text, email, phone, message, choice, checkbox, consent, or a hidden field that fills itself (campaign source, landing page)."
+msgstr "Eén veld van een formulier: tekst, e-mail, telefoon, bericht, keuze, vinkje, toestemming of een verborgen veld dat zichzelf vult (campagnebron, landingspagina)."
 
 #: blocks/field/block.json
 msgctxt "block keyword"

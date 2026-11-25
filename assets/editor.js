@@ -16,7 +16,19 @@
 		{ value: 'textarea', label: __('Message (several lines)', 'evive-forms') },
 		{ value: 'select', label: __('Choice (dropdown)', 'evive-forms') },
 		{ value: 'checkbox', label: __('Checkbox', 'evive-forms') },
-		{ value: 'consent', label: __('Consent (always required)', 'evive-forms') }
+		{ value: 'consent', label: __('Consent (always required)', 'evive-forms') },
+		{ value: 'hidden', label: __('Hidden (fills itself)', 'evive-forms') }
+	];
+	var SOURCES = [
+		{ value: 'utm_source', label: __('Campaign source (utm_source)', 'evive-forms') },
+		{ value: 'utm_medium', label: __('Campaign medium (utm_medium)', 'evive-forms') },
+		{ value: 'utm_campaign', label: __('Campaign name (utm_campaign)', 'evive-forms') },
+		{ value: 'utm_term', label: __('Campaign term (utm_term)', 'evive-forms') },
+		{ value: 'utm_content', label: __('Campaign content (utm_content)', 'evive-forms') },
+		{ value: 'gclid', label: __('Google Ads click (gclid)', 'evive-forms') },
+		{ value: 'referrer', label: __('Website the visitor came from', 'evive-forms') },
+		{ value: 'landing_page', label: __('First page of the visit', 'evive-forms') },
+		{ value: 'fixed', label: __('A fixed value', 'evive-forms') }
 	];
 
 	function slug(text) {
@@ -95,6 +107,7 @@
 			case 'select': return el('select', { disabled: true }, el('option', null, ph || __('Choose…', 'evive-forms')));
 			case 'checkbox':
 			case 'consent': return null;
+			case 'hidden': return el('em', { className: 'evive-field-hidden-note' }, __('Hidden field, filled with:', 'evive-forms') + ' ' + ((SOURCES.find(function (s) { return s.value === (a.source || a.name); }) || {}).label || a.value || '-'));
 			default: return el('input', { type: a.type, placeholder: ph, disabled: true });
 		}
 	}
@@ -105,6 +118,7 @@
 			var set = props.setAttributes;
 			var others = useOtherNames(props.clientId);
 			var check = a.type === 'checkbox' || a.type === 'consent';
+			var hidden = a.type === 'hidden';
 			var required = a.required || a.type === 'consent';
 			var blockProps = be.useBlockProps({ className: 'evive-field evive-field-' + a.type + (a.width === 'half' ? ' is-half' : '') });
 
@@ -126,9 +140,12 @@
 				el(be.InspectorControls, null,
 					el(c.PanelBody, { title: __('Field', 'evive-forms') },
 						el(c.SelectControl, { label: __('Type', 'evive-forms'), value: a.type, options: TYPES, onChange: function (v) { set({ type: v }); }, __nextHasNoMarginBottom: true }),
-						a.type !== 'consent' && el(c.ToggleControl, { label: __('Required', 'evive-forms'), checked: a.required, onChange: function (v) { set({ required: v }); }, __nextHasNoMarginBottom: true }),
+						a.type !== 'consent' && !hidden && el(c.ToggleControl, { label: __('Required', 'evive-forms'), checked: a.required, onChange: function (v) { set({ required: v }); }, __nextHasNoMarginBottom: true }),
+						hidden && el(c.SelectControl, { label: __('Fill with', 'evive-forms'), help: __('Taken from the visitor\'s first page of the visit (no cookies) and sent with the entry.', 'evive-forms'), value: a.source || '', options: [{ value: '', label: __('Choose…', 'evive-forms') }].concat(SOURCES), onChange: function (v) { set({ source: v }); }, __nextHasNoMarginBottom: true }),
+						hidden && a.source === 'fixed' && el(c.TextControl, { label: __('Value', 'evive-forms'), value: a.value, onChange: function (v) { set({ value: v }); }, __nextHasNoMarginBottom: true }),
+						!check && !hidden && el(c.TextControl, { label: __('Pre-fill from link', 'evive-forms'), help: __('Name of a link parameter, e.g. "type": /contact/?type=demo then chooses "Demo".', 'evive-forms'), value: a.prefill, onChange: function (v) { set({ prefill: slug(v).replace(/_/g, '_') }); }, __nextHasNoMarginBottom: true }),
 						a.type === 'select' && el(c.TextareaControl, { label: __('Choices', 'evive-forms'), help: __('One per line.', 'evive-forms'), value: (a.options || []).join('\n'), onChange: function (v) { set({ options: v.split('\n') }); }, __nextHasNoMarginBottom: true }),
-						!check && el(c.TextControl, { label: __('Placeholder', 'evive-forms'), value: a.placeholder, onChange: function (v) { set({ placeholder: v }); }, __nextHasNoMarginBottom: true }),
+						!check && !hidden && el(c.TextControl, { label: __('Placeholder', 'evive-forms'), value: a.placeholder, onChange: function (v) { set({ placeholder: v }); }, __nextHasNoMarginBottom: true }),
 						el(c.TextControl, { label: __('Help text', 'evive-forms'), value: a.help, onChange: function (v) { set({ help: v }); }, __nextHasNoMarginBottom: true }),
 						el(c.SelectControl, { label: __('Width', 'evive-forms'), value: a.width, options: [{ value: 'full', label: __('Full width', 'evive-forms') }, { value: 'half', label: __('Half width', 'evive-forms') }], onChange: function (v) { set({ width: v }); }, __nextHasNoMarginBottom: true }),
 						el(c.TextControl, { label: __('Field name', 'evive-forms'), help: __('Used in the entries and the CSV export. Letters, digits and _ only.', 'evive-forms'), value: a.name, onChange: function (v) { set({ name: slug(v) }); }, __nextHasNoMarginBottom: true })

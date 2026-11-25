@@ -5,21 +5,84 @@
 	"title": "Form field",
 	"category": "widgets",
 	"icon": "edit",
-	"description": "One field of a form: text, email, phone, message, choice, checkbox or consent.",
-	"keywords": ["field", "input", "email", "consent"],
+	"description": "One field of a form: text, email, phone, message, choice, checkbox, consent, or a hidden field that fills itself (campaign source, landing page).",
+	"keywords": [
+		"field",
+		"input",
+		"email",
+		"consent"
+	],
 	"textdomain": "evive-forms",
-	"ancestor": ["evive/form"],
+	"ancestor": [
+		"evive/form"
+	],
 	"attributes": {
-		"type": { "type": "string", "default": "text", "enum": ["text", "email", "tel", "textarea", "select", "checkbox", "consent"] },
-		"label": { "type": "string", "default": "" },
-		"name": { "type": "string", "default": "" },
-		"required": { "type": "boolean", "default": false },
-		"placeholder": { "type": "string", "default": "" },
-		"help": { "type": "string", "default": "" },
-		"options": { "type": "array", "default": [], "items": { "type": "string" } },
-		"width": { "type": "string", "default": "full", "enum": ["full", "half"] }
+		"type": {
+			"type": "string",
+			"default": "text",
+			"enum": [
+				"text",
+				"email",
+				"tel",
+				"textarea",
+				"select",
+				"checkbox",
+				"consent",
+				"hidden"
+			]
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		},
+		"placeholder": {
+			"type": "string",
+			"default": ""
+		},
+		"help": {
+			"type": "string",
+			"default": ""
+		},
+		"options": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"width": {
+			"type": "string",
+			"default": "full",
+			"enum": [
+				"full",
+				"half"
+			]
+		},
+		"source": {
+			"type": "string",
+			"default": ""
+		},
+		"value": {
+			"type": "string",
+			"default": ""
+		},
+		"prefill": {
+			"type": "string",
+			"default": ""
+		}
 	},
-	"supports": { "html": false, "reusable": false },
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
 	"editorScript": "evive-forms-editor",
 	"render": "file:./render.php"
 }

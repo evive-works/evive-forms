@@ -80,6 +80,10 @@ function evive_forms_validate($def, $post) {
                 $v = substr(sanitize_text_field($raw), 0, 40);
                 if ($v !== '' && !preg_match('/^[0-9 +().\-\/]{6,40}$/', $v)) $errors[$name] = __('Please enter a valid phone number.', 'evive-forms');
                 break;
+            case 'hidden':
+                // A fixed value comes from the saved definition, never from the browser.
+                $v = ($f['source'] ?? '') === 'fixed' ? (string) ($f['value'] ?? '') : substr(sanitize_text_field($raw), 0, 300);
+                break;
             case 'select':
                 $v = sanitize_text_field($raw);
                 if ($v !== '' && !in_array($v, $f['options'], true)) $v = '';
@@ -105,9 +109,12 @@ function evive_forms_sender_email($def, $values) {
 
 function evive_forms_mail_body($def, $values, $page) {
     $lines = [];
+    $hidden = [];
     foreach ($def['fields'] as $name => $f) {
+        if ($f['type'] === 'hidden') { if ($values[$name] !== '') $hidden[] = $f['label'] . ': ' . $values[$name]; continue; }
         $lines[] = $f['label'] . ': ' . ($values[$name] !== '' ? $values[$name] : '-');
     }
+    if ($hidden) { $lines[] = ''; $lines[] = __('Source of this entry:', 'evive-forms'); $lines = array_merge($lines, $hidden); }
     $lines[] = '';
     /* translators: %s: URL of the page with the form */
     $lines[] = sprintf(__('Sent from: %s', 'evive-forms'), $page ?: home_url('/'));

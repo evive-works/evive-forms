@@ -5,7 +5,7 @@
  *              message, choice, checkbox, consent) in the editor like any other block. Server-side validation,
  *              spam protection without a captcha puzzle, entries kept in WordPress with automatic deletion,
  *              notification mail plus an optional confirmation to the sender. No scripts on pages without a form.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Author: evive.works (StackPros B.V.)
@@ -18,7 +18,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('EVIVE_FORMS_VERSION', '0.1.0');
+define('EVIVE_FORMS_VERSION', '0.2.0');
 define('EVIVE_FORMS_FILE', __FILE__);
 define('EVIVE_FORMS_DIR', plugin_dir_path(__FILE__));
 
@@ -37,6 +37,14 @@ require_once EVIVE_FORMS_DIR . 'includes/settings.php';
 require_once EVIVE_FORMS_DIR . 'includes/definitions.php';
 require_once EVIVE_FORMS_DIR . 'includes/submit.php';
 require_once EVIVE_FORMS_DIR . 'includes/entries.php';
+
+// 0.2.0: remember where a visit came from (campaign parameters, the external referrer, the first page) for the
+// session only (sessionStorage, no cookie, nothing sent anywhere), so hidden form fields can carry it. Printed only
+// once a form on the site has such a field. Visitors without JavaScript simply send these fields empty.
+add_action('wp_footer', function () {
+    if (!get_option('evive_forms_capture') || is_admin()) return;
+    echo "<script>(function(){try{var K='evive_forms_visit',q=new URLSearchParams(location.search),k=['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid'],a=JSON.parse(sessionStorage.getItem(K)||'null'),n=k.some(function(x){return q.get(x)});if(!a||n){var r='';try{r=document.referrer&&new URL(document.referrer).host!==location.host?document.referrer.slice(0,300):''}catch(e){}a={landing_page:(location.origin+location.pathname).slice(0,300),referrer:r};k.forEach(function(x){if(q.get(x))a[x]=q.get(x).slice(0,200)});sessionStorage.setItem(K,JSON.stringify(a))}}catch(e){}})();</script>\n";
+}, 5);
 
 add_action('init', function () {
     load_plugin_textdomain('evive-forms', false, dirname(plugin_basename(__FILE__)) . '/languages');

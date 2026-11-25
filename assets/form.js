@@ -64,5 +64,29 @@
 		});
 	}
 
-	document.querySelectorAll('form[data-evive-form]').forEach(init);
+	// 0.2.0: hidden fields from the visit (see the footer script) and fields pre-filled from the link (?type=demo).
+	function norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+	function fill(form) {
+		var visit = {}, q = new URLSearchParams(location.search);
+		try { visit = JSON.parse(sessionStorage.getItem('evive_forms_visit') || '{}') || {}; } catch (e) {}
+		form.querySelectorAll('input[data-evive-source]').forEach(function (input) {
+			var s = input.dataset.eviveSource;
+			if (!s || s === 'fixed') return;
+			input.value = s.indexOf('query:') === 0 ? (q.get(s.slice(6)) || '').slice(0, 200) : (visit[s] || q.get(s) || '');
+		});
+		form.querySelectorAll('[data-evive-prefill]').forEach(function (field) {
+			var v = q.get(field.dataset.evivePrefill);
+			if (!v) return;
+			if (field.tagName === 'SELECT') {
+				var want = norm(v), opts = Array.prototype.slice.call(field.options).filter(function (o) { return o.value; });
+				var hit = opts.find(function (o) { return norm(o.value) === want; }) || opts.find(function (o) { return norm(o.value).indexOf(want) === 0; }) ||
+					opts.find(function (o) { return norm(o.value).indexOf(want) !== -1; });
+				if (hit) field.value = hit.value;
+			} else if (field.type !== 'checkbox') {
+				field.value = v.slice(0, 200);
+			}
+		});
+	}
+
+	document.querySelectorAll('form[data-evive-form]').forEach(function (form) { fill(form); init(form); });
 })();
